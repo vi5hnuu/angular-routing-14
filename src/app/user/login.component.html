@@ -1,0 +1,68 @@
+<div class="rounded-lg border border-gray-400 overflow-hidden">
+  <div class="px-8 py-4 bg-gray-300 text-2xl">{{pageTitle}}</div>
+  <div class="px-8 py-6">
+    <form novalidate
+          (ngSubmit)="login(loginForm)"
+          #loginForm="ngForm"
+          autocomplete="off">
+      <div class="form-control">
+        <label for="userNameId">User Name</label>
+        <div class="input-box">
+          <input
+            id="userNameId"
+            type="text"
+            placeholder="User Name (required)"
+            required
+            ngModel
+            name="userName"
+            #userNameVar="ngModel"
+            [ngClass]="{
+            'is-invalid': (userNameVar.touched || userNameVar.dirty) && !userNameVar.valid,
+            'is-valid': !!userNameVar.valid
+            }"
+          />
+          <span [ngClass]="{'text-red-400':userNameVar.errors?.['required'],'invisible':!userNameVar.errors?.['required']}">
+                User name is required.
+          </span>
+        </div>
+      </div>
+      <div class="form-control mb-8">
+        <label for="passwordId">Password</label>
+        <div class="input-box">
+          <input
+            id="passwordId"
+            type="password"
+            placeholder="Password (required)"
+            required
+            ngModel
+            name="password"
+            #passwordVar="ngModel"
+            [ngClass]="{
+            'is-invalid': (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid,
+            'is-valid': !!passwordVar.valid
+            }"/>
+          <span [ngClass]="{'text-red-400':passwordVar.errors?.['required'],'invisible':!passwordVar.errors?.['required']}">
+                Password is required.
+              </span>
+        </div>
+      </div>
+      <div class="form-actions text-end">
+        <button
+          class="mr-6 border-green-400 text-green-400 hover:bg-green-500 hover:text-white"
+          type="submit"
+          [disabled]="!loginForm.valid">
+          Log In
+        </button>
+        <button
+          routerLink="/welcome"
+          class="border-red-400 text-red-400 hover:bg-red-500 hover:text-white"
+          type="button">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

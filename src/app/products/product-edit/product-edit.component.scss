@@ -1,0 +1,26 @@
+:host{
+  width:100%;
+}
+
+.form-control,.form-actions{
+  @apply flex
+}
+.form-control{
+  @apply text-lg mb-3;
+
+  label{
+    @apply w-4/12 text-2xl;
+  }
+  .input-box{
+    @apply flex-1 flex flex-col
+  }
+  input,textarea{
+    @apply w-9/12 px-6 py-2 text-xl rounded-lg border;
+  }
+}
+.form-actions{
+  @apply justify-end gap-3;
+  button{
+    @apply px-6 py-2 text-xl border rounded-lg
+  }
+}
