@@ -9,28 +9,32 @@ import {ProductEditInfoComponent} from "./product-edit/product-edit-info.compone
 import {ProductEditTagsComponent} from "./product-edit/product-edit-tags.component";
 
 const routes: Routes = [
-  {path: 'products', component: ProductListComponent},
-  {path: 'products/:id', component: ProductDetailComponent, resolve: {resolvedData: ProductResolver}},
-  {
-    path: 'products/:id/edit',
-    component: ProductEditComponent,
-    resolve: {resolvedData: ProductResolver},
-    children: [
-      {path: '', redirectTo: 'info', pathMatch: 'full'},
-      {path: 'info', component: ProductEditInfoComponent},
-      {path: 'tags', component: ProductEditTagsComponent},
-    ]
-  },
-  {
-    path: 'products/:id/add',
-    component: ProductEditComponent,
-    resolve: {
-      resolvedData: ProductResolver,
-    },
-    children: [
-      {path: '', redirectTo: 'info', pathMatch: 'full'},
-      {path: 'info', component: ProductEditInfoComponent},
-      {path: 'tags', component: ProductEditTagsComponent},
+  {path: 'products',
+    children:[
+      {path: '', component: ProductListComponent},
+      {path: ':id', component: ProductDetailComponent, resolve: {resolvedData: ProductResolver}},
+      {
+        path: ':id/edit',
+        component: ProductEditComponent,
+        resolve: {resolvedData: ProductResolver},
+        children: [
+          {path: '', redirectTo: 'info', pathMatch: 'full'},
+          {path: 'info', component: ProductEditInfoComponent},
+          {path: 'tags', component: ProductEditTagsComponent},
+        ]
+      },
+      {
+        path: ':id/add',
+        component: ProductEditComponent,
+        resolve: {
+          resolvedData: ProductResolver,
+        },
+        children: [
+          {path: '', redirectTo: 'info', pathMatch: 'full'},
+          {path: 'info', component: ProductEditInfoComponent},
+          {path: 'tags', component: ProductEditTagsComponent},
+        ]
+      },
     ]
   },
 ];
