@@ -2,95 +2,38 @@
   <div class="px-6 py-4 text-xl bg-gray-200">
     <p class="">{{pageTitle}}</p>
   </div>
-  <div *ngIf="product" class="p-6 pl-8">
-    <form novalidate
-          #productForm="ngForm">
-      <div class="form-control">
-        <label for="productNameId">Product Name</label>
-        <div class="input-box">
-          <input
-            id="productNameId"
-            type="text"
-            placeholder="Name (required)"
-            required
-            minlength="3"
-            [(ngModel)]=product.productName
-            name="productName"
-            #productNameVar="ngModel"
-            [ngClass]="{
-              'is-invalid': (productNameVar.touched || productNameVar.dirty) && !productNameVar.valid,
-             'is-valid': productNameVar.valid
-             }"
-          />
-          <span>
-            <span
-              [ngClass]="{'text-red-400':productNameVar.errors?.['required'],'hidden':!productNameVar.errors?.['required']}">
-              Product name is required.
-            </span>
-            <span
-              [ngClass]="{'text-red-400':productNameVar.errors?.['minlength'],'hidden':!productNameVar.errors?.['minlength']}">
-              Product name must be at least three characters.
-            </span>
-          </span>
-        </div>
+  <div  class="p-6 pl-8">
+    <div class="tabs-container flex mb-4">
+      <div class="tab tab-1 left-1">
+        <a routerLink="info" routerLinkActive="bg-blue-200">edit-info</a>
       </div>
-      <div class="form-control">
-        <label
-          for="productCodeId">Product Code</label>
-        <div class="input-box">
-          <input
-            id="productCodeId"
-            type="text"
-            placeholder="Code (required)"
-            required
-            [(ngModel)]=product.productCode
-            name="productCode"
-            #productCodeVar="ngModel"
-            [ngClass]="{
-              'is-invalid': (productCodeVar.touched || productCodeVar.dirty) && !productCodeVar.valid,
-             'is-valid': productCodeVar.valid
-             }"/>
-          <span
-            [ngClass]="{'text-red-400':productCodeVar.errors?.['required'],'hidden':!productCodeVar.errors?.['required']}">
-              Product code is required.
-            </span>
-        </div>
+      <div class="tab tab-2">
+        <a routerLink="tags" routerLinkActive="bg-blue-200">edit-tags</a>
       </div>
-      <div class="form-control">
-        <label for="descriptionId">Description</label>
-        <div class="input-box">
-          <textarea
-            class="outline-green-500 border border-green-200 min-h-[12rem]"
-            id="descriptionId"
-            placeholder="Description"
-            [(ngModel)]=product.description
-            name="description"></textarea>
-        </div>
-      </div>
-      <div class="form-actions mt-6 px-6 py-2">
-        <button
-          type="button"
-          class="bg-green-100 border-green-400 hover:border-green-500"
-          [title]="productForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-          [disabled]="!productForm.valid"
-          (click)="saveProduct()">
-          Save
-        </button>
-        <button
-          routerLink="/products"
-          type="button"
-          class="bg-yellow-100 border-yellow-400 hover:border-yellow-500"
-          title="Cancel your edits">
-          Cancel
-        </button>
-        <button
-          type="button"
-          class="bg-red-100 border-red-400 hover:border-red-500"
-          title="Delete this product"
-          (click)="deleteProduct()">
-          Delete
-        </button>
-      </div>
-    </form>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="actions px-6 py-2">
+      <button
+        type="button"
+        class="bg-green-100 border-green-400 hover:border-green-500"
+        [disabled]="!product?.productName || !product?.productCode || !product?.description"
+        (click)="saveProduct()">
+        Save
+      </button>
+      <button
+        routerLink="/products"
+        type="button"
+        class="bg-yellow-100 border-yellow-400 hover:border-yellow-500"
+        title="Cancel your edits">
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="bg-red-100 border-red-400 hover:border-red-500"
+        title="Delete this product"
+        (click)="deleteProduct()">
+        Delete
+      </button>
+    </div>
   </div>
 </div>

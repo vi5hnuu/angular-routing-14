@@ -11,7 +11,7 @@ export interface IProduct{
   tags:string[]
 }
 
-export interface ProductReolved{
+export interface ProductResolved {
   product:IProduct|null;
   error?:any;
 }

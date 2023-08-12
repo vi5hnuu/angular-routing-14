@@ -1,36 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {IProduct} from "../product";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {IProduct, ProductResolved} from "../product";
+import {ActivatedRoute} from "@angular/router";
+import {Subscription} from "rxjs";
 
+/**
+ * @title Chips with input
+ */
 @Component({
-  templateUrl: './product-edit-tags.component.html'
+  templateUrl: 'product-edit-tags.component.html',
+  styleUrls: ['product-edit-tags.component.scss'],
 })
-export class ProductEditTagsComponent implements OnInit {
-  errorMessage = '';
-  newTags = '';
-  product = { id: 1, category: 'test', tags: ['test'] };
-
-  constructor(private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
+export class ProductEditTagsComponent implements OnInit,OnDestroy {
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  product: IProduct | null = null;
+  prodSub:Subscription|undefined;
+  constructor(private route: ActivatedRoute) {
   }
 
-  // Add the defined tags
-  addTags(): void {
-    if (this.product) {
-      if (!this.newTags) {
-        this.errorMessage = 'Enter the search keywords separated by commas and then press Add';
-      } else {
-        const tagArray = this.newTags.split(',');
-        this.product.tags = this.product.tags ? this.product.tags.concat(tagArray) : tagArray;
-        this.newTags = '';
-        this.errorMessage = '';
-      }
+  ngOnInit() {
+    this.prodSub=this.route.parent?.data.subscribe(data=>{
+      const rdata:ProductResolved=data['resolvedData']
+      this.product=rdata.product;
+    });
+  }
+  ngOnDestroy() {
+    this.prodSub?.unsubscribe();
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.product?.tags.push(value);
     }
+    // Clear the input value
+    event.chipInput!.clear();
   }
 
-  // Remove the tag from the array of tags.
-  removeTag(idx: number): void {
-    this.product?.tags?.splice(idx, 1);
+  remove(tag:string): void {
+    const index = this.product?.tags.indexOf(tag);
+
+    if (index && index >= 0) {
+      this.product?.tags.splice(index, 1);
+    }
   }
 }

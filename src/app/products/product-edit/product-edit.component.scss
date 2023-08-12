@@ -2,25 +2,26 @@
   width:100%;
 }
 
-.form-control,.form-actions{
-  @apply flex
-}
-.form-control{
-  @apply text-lg mb-3;
-
-  label{
-    @apply w-4/12 text-2xl;
-  }
-  .input-box{
-    @apply flex-1 flex flex-col
-  }
-  input,textarea{
-    @apply w-9/12 px-6 py-2 text-xl rounded-lg border;
-  }
-}
-.form-actions{
-  @apply justify-end gap-3;
+.actions{
+  @apply flex justify-end gap-3;
   button{
     @apply px-6 py-2 text-xl border rounded-lg
+  }
+}
+
+.tabs-container{
+  .tab{
+    @apply flex-1 text-center border text-xl capitalize bg-gray-100 text-blue-400 hover:bg-blue-200 hover:text-blue-900;
+    a{
+      @apply inline-block w-full h-full py-2
+    }
+  }
+  .tab-1{
+    @apply rounded-l-lg translate-x-[10%];
+    clip-path: polygon(75% 0, 100% 50%, 75% 100%, 0% 100%, 0% 0%);
+  }
+  .tab-2{
+    @apply translate-x-[-10%] rounded-r-lg;
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
   }
 }

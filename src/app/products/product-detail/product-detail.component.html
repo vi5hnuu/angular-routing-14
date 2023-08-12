@@ -1,6 +1,6 @@
 <div class="flex h-full flex-col border border-gray-500 rounded-lg overflow-hidden w-8/12 m-auto">
   <div class="bg-gray-200 px-10 py-6 flex justify-between items-center px-4 text-2xl">
-    <p>Product Detail  {{product?.productName ?? 'Not Found'}}</p>
+    <p>{{errorMessage ? 'Product Not Found.' : 'Product Detail : '+product?.productName}}</p>
     <div>
       <button
         routerLink="/products"
@@ -10,13 +10,7 @@
     </div>
   </div>
   <div class="flex-1 p-8">
-    <div *ngIf="loading && !errorMessage" class="flex items-center justify-center flex-1 text-4xl bg-red-300">
-      please wait while we load your product
-    </div>
-    <div *ngIf="!product && !loading && !errorMessage" class="flex items-center justify-center flex-1 text-4xl bg-red-300">
-      Product Not Found
-    </div>
-    <div *ngIf="errorMessage" class="flex items-center justify-center flex-1 text-4xl bg-red-300">
+    <div *ngIf="errorMessage" class="text-center text-4xl text-red-300">
       {{errorMessage}}
     </div>
     <div *ngIf="product" class="flex items-center justify-center">

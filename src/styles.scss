@@ -27,3 +27,11 @@ input.is-valid{
 input.is-invalid{
   @apply outline-red-500 border-red-800 bg-red-100;
 }
+
+button:disabled{
+  @apply disabled;
+}
+
+.disabled{
+  @apply disabled:bg-gray-100 disabled:text-gray-300 disabled:border-gray-300 disabled:pointer-events-none;
+}

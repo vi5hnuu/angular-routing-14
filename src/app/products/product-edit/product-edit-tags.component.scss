@@ -1,0 +1,10 @@
+.form-control{
+  @apply flex items-center;
+
+  label{
+    @apply w-3/12 text-xl tracking-wider;
+  }
+  input{
+    @apply px-6 py-2 text-xl border border-gray-100;
+  }
+}
