@@ -11,9 +11,6 @@ import {AuthGuard} from "../user/auth.guard";
 import {ProductEditGuard} from "./product-edit/product-edit.guard";
 
 const routes: Routes = [
-  {path: 'products',
-    canActivate:[AuthGuard],
-    children:[
       {path: '', component: ProductListComponent},
       {path: ':id', component: ProductDetailComponent, resolve: {resolvedData: ProductResolver}},
       {
@@ -38,8 +35,6 @@ const routes: Routes = [
           {path: 'info', component: ProductEditInfoComponent},
           {path: 'tags', component: ProductEditTagsComponent},
         ]
-      },
-    ]
   },
 ];
 
