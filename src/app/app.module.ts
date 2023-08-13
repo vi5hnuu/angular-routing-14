@@ -17,6 +17,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {LottieModule} from "ngx-lottie";
 import player from "lottie-web";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {SharedModule} from "./shared/shared.module";
 
 export function playerFactory() {
   return player;
@@ -26,12 +27,13 @@ export function playerFactory() {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
-    LottieModule.forRoot({ player:playerFactory }),
+    InMemoryWebApiModule.forRoot(ProductData, {delay: 1000}),
+    LottieModule.forRoot({player: playerFactory}),
     ProductModule,
     UserModule,
     MessageModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,

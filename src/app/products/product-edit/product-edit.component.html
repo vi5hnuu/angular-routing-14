@@ -2,13 +2,17 @@
   <div class="px-6 py-4 text-xl bg-gray-200">
     <p class="">{{pageTitle}}</p>
   </div>
-  <div  class="p-6 pl-8">
+  <div class="p-6 pl-8">
     <div class="tabs-container flex mb-4">
       <div class="tab tab-1 left-1">
-        <a routerLink="info" routerLinkActive="bg-blue-200">edit-info</a>
+        <a routerLink="info" routerLinkActive="bg-blue-500 text-white">edit-info</a>
+        <span *ngIf="!isValid('info')"
+              class="absolute inline-block w-8 h-8 rounded-full bg-white text-red-500 top-[50%] left-2 translate-y-[-50%]">!</span>
       </div>
       <div class="tab tab-2">
-        <a routerLink="tags" routerLinkActive="bg-blue-200">edit-tags</a>
+        <a routerLink="tags" routerLinkActive="bg-blue-500 text-white">edit-tags</a>
+        <span *ngIf="!isValid('tags')"
+              class="absolute inline-block w-8 h-8 rounded-full bg-white text-red-500 top-[50%] right-2 translate-y-[-50%]">!</span>
       </div>
     </div>
     <router-outlet></router-outlet>
@@ -16,7 +20,7 @@
       <button
         type="button"
         class="bg-green-100 border-green-400 hover:border-green-500"
-        [disabled]="!product?.productName || !product?.productCode || !product?.description"
+        [disabled]="!formIsValid()"
         (click)="saveProduct()">
         Save
       </button>

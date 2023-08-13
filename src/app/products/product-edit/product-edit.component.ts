@@ -18,7 +18,18 @@ export class ProductEditComponent implements OnInit{
   constructor(private productService: ProductService,
     private messageService: MessageService,private router:Router,private route:ActivatedRoute) { }
 
+  formIsValid(){
+    return this.isValid('info') && this.isValid('tags');
+  }
+  isValid(tab:string):boolean{
+    switch (tab){
+      case 'info':return !!(this.product?.productName && this.product?.productName.length>=3 && this.product?.productCode && this.product?.description);
+      case 'tags':return !!this.product?.category;
+      default:return false;
+    }
+  }
   ngOnInit() {
+    console.log('init')
     this.route.data.subscribe((data)=>{
       const rdata=data['resolvedData'];
       rdata.product && this.onProductRetrieved(rdata.product);
