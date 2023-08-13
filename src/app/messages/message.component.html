@@ -1,15 +1,12 @@
-<div class="card">
-  <div class="card-header">Messages
-    <button class="btn btn-light btn-sm float-right"
-            (click)="close()">
-      X
-    </button>
+<div >
+  <div class="mb-4 flex justify-between bg-gray-400 rounded-lg px-6 py-4 text-xl text-white">
+    <span>Messages</span>
+    <button class="text-end cursor-pointer text-gray-100" (click)="close()">X</button>
   </div>
-  <div class="card-body">
+  <div >
     <div *ngFor="let message of messages; let i=index">
-      <div *ngIf="i<10"
-           class="message-row">
-        {{ message }}
+      <div class="bg-gray-100 rounded-lg px-6 py-4 mb-2">
+        {{i+1}} : {{ message }}
       </div>
     </div>
   </div>

@@ -1,10 +1,10 @@
 :host{
   @apply flex-1 flex flex-col h-full
 }
-.nav-link li a{
+.nav-links li a{
   @apply inline-block text-xl px-6 py-2 text-gray-400 hover:text-blue-400 border-b border-gray-400 hover:border-blue-500
 }
 
-.nav-link li a.active-link{
+.nav-links li a.active-link{
   @apply text-blue-400 border-blue-400
 }

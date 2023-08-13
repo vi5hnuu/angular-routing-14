@@ -13,8 +13,19 @@ export class ProductEditComponent implements OnInit{
   pageTitle = 'Product Edit';
   errorMessage:any;
 
-  product: IProduct | null = null;
+  currentProduct:IProduct|null = null;
+  originalProduct:IProduct|null = null;
 
+  get product():IProduct|null{
+    return this.currentProduct;
+  }
+  set product(product:IProduct|null){
+    this.currentProduct = product;
+    this.originalProduct = Object.assign({},product);//does not create deep copy i.e tags etc
+  }
+  get isDirty(){
+    return JSON.stringify(this.currentProduct)!==JSON.stringify(this.originalProduct);
+  }
   constructor(private productService: ProductService,
     private messageService: MessageService,private router:Router,private route:ActivatedRoute) { }
 
@@ -81,12 +92,16 @@ export class ProductEditComponent implements OnInit{
       this.errorMessage = 'Please correct the validation errors.';
     }
   }
+  reset(){
+    this.currentProduct=null;
+    this.originalProduct=null;
+  }
 
   onSaveComplete(message?: string): void {
     if (message) {
       this.messageService.addMessage(message);
     }
-
+    this.reset();
     this.router.navigate(['/products'])
   }
 }

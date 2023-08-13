@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './user/auth.service';
 import {Router,Event,NavigationStart,NavigationEnd,NavigationCancel,NavigationError} from "@angular/router";
 import {slideInAnimation} from "./app.animation";
+import {MessageService} from "./messages/message.service";
 
 @Component({
   selector: 'vi-root',
@@ -23,10 +24,14 @@ export class AppComponent {
     return '';
   }
 
-  constructor(private authService: AuthService,private router:Router) {
+  constructor(private authService: AuthService,private router:Router,private messageService:MessageService) {
     this.router.events.subscribe((routerEvent:Event)=>{
       this.checkRouterEvent(routerEvent);
     })
+  }
+
+  get isMessageDisplayed(){
+    return this.messageService.isDisplayed;
   }
   checkRouterEvent(routerEvent:Event){
     if(routerEvent instanceof NavigationStart){
@@ -35,6 +40,15 @@ export class AppComponent {
     if(routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError){
       this.loading=false;
     }
+  }
+  toggleMessages(){
+    if(this.messageService.isDisplayed){
+      this.messageService.isDisplayed=false;
+      this.router.navigate([{outlets:{'popup':null}}])
+      return;
+    }
+    this.messageService.isDisplayed=true;
+    this.router.navigate([{outlets:{'popup':['messages']}}])
   }
 
   logOut(): void {
